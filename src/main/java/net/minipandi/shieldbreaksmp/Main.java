@@ -16,7 +16,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         getCommand("customItems").setExecutor(new CustomComands());
         Bukkit.getPluginManager().registerEvents(new listener(), this);
-
+//test
         ItemStack staff_of_teleportation_item = new ItemStack(Material.STICK);
         ItemMeta staff_of_teleportation_meta = staff_of_teleportation_item.getItemMeta();
         staff_of_teleportation_meta.setDisplayName(ChatColor.DARK_PURPLE + "Staff of Teleportation");
