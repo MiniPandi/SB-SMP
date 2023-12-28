@@ -1,3 +1,4 @@
-net\minipandi\shieldbreaksmp\CustomComands.class
-net\minipandi\shieldbreaksmp\listener.class
+net\minipandi\shieldbreaksmp\items\CustomItems.class
+net\minipandi\shieldbreaksmp\listener\listener.class
 net\minipandi\shieldbreaksmp\Main.class
+net\minipandi\shieldbreaksmp\commands\CustomItemsCmd.class
