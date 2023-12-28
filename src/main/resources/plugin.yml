@@ -1,0 +1,7 @@
+name: ShieldBreakSMP
+version: '${project.version}'
+main: net.minipandi.shieldbreaksmp.Main
+api-version: '1.20'
+commands:
+  customItems:
+    permission: customItems.give
