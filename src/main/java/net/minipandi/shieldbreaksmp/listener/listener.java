@@ -32,18 +32,38 @@ public class listener implements Listener {
                         } else if (item.getType().equals(Material.STICK) && item.getItemMeta().getCustomModelData() == 1) {
                             Player player = e.getPlayer();
                             Block block = e.getClickedBlock();
-                            ItemStack iblock = new ItemStack(Objects.requireNonNull(block).getType());
-                            player.sendMessage("2");
-                            if (player.getInventory().contains(iblock, 1)) {
-                                Location locblock = Objects.requireNonNull(e.getClickedBlock()).getLocation();
+                            if (block == null);
+                            ItemStack iblock = new ItemStack(block.getType());
+                            if (player.getInventory().contains(iblock)) {
+                                Location locblock = e.getClickedBlock().getLocation();
                                 locblock.add(0,1,0).getBlock().setType(block.getType());
                                 player.sendMessage("1");
+                                removeOne(e.getPlayer().getInventory(), iblock);
                             } else {
-                                player.sendMessage("no blocks");
+                                e.getPlayer().sendMessage(ChatColor.RED + "You don't hav enough blocks!");
+                                e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public static void removeOne(Inventory inventory, ItemStack item) {
+        int size = inventory.getSize();
+        for (int i = 0; i < size; i ++) {
+            ItemStack other = inventory.getItem(i);
+            if (item.isSimilar(other)) {
+                assert other != null;
+                int amount = other.getAmount();
+                if (amount > 1) {
+                    other.setAmount(amount - 1);
+                } else {
+                    other = null;
+                }
+                inventory.setItem(i, other);
+                break;
             }
         }
     }
