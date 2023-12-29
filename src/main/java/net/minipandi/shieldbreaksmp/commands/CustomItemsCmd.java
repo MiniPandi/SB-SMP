@@ -19,9 +19,10 @@ public class CustomItemsCmd implements TabExecutor {
                 if (args.length == 1){
                     if (args[0].equals("Staff_of_Teleportation")){
                         player.getInventory().addItem(CustomItems.staff_of_teleportation_item());
-                    }
-                    if (args[0].equals("Construction_Wand")) {
+                    } else if (args[0].equals("Construction_Wand")) {
                         player.getInventory().addItem(CustomItems.construction_wand_item());
+                    } else if (args[0].equals("Funny_Stick")) {
+                        player.getInventory().addItem(CustomItems.funny_stick());
                     }
                 } else {
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
@@ -41,6 +42,7 @@ public class CustomItemsCmd implements TabExecutor {
         if (args.length == 1){
             list.add("Staff_of_Teleportation");
             list.add("Construction_Wand");
+            list.add("Funny_Stick");
         }
         ArrayList<String> current = new ArrayList<>();
         String currentarg = args[args.length-1].toLowerCase();

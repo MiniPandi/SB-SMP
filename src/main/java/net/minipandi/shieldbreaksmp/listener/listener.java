@@ -1,5 +1,6 @@
 package net.minipandi.shieldbreaksmp.listener;
 
+import net.minipandi.shieldbreaksmp.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -46,6 +47,22 @@ public class listener implements Listener {
                             } else {
                                 e.getPlayer().sendMessage(ChatColor.RED + "You don't hav enough blocks!");
                                 e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (e.getAction().isRightClick()){
+            ItemStack item = e.getItem();
+            if (item != null && item.getType() != Material.AIR){
+                if (item.getItemMeta() != null){
+                    if (item.getItemMeta().hasCustomModelData()){
+                        if (item.getType().equals(Material.STICK) && item.getItemMeta().getCustomModelData() == 2){
+                            if (e.getPlayer().isOnGround()){
+                                if (item.getEnchantments().containsKey(Main.airJump)){
+                                    Integer lvl = item.getEnchantments().get(Main.airJump);
+                                }
+                                e.getPlayer().setVelocity(e.getPlayer().getEyeLocation().getDirection().multiply(-10.0));
                             }
                         }
                     }
