@@ -15,10 +15,10 @@ public class CustomItems {
         return staff_of_teleportation_item;
     }
 
-    public static ItemStack construction_wand() {
+    public static ItemStack construction_wand_item() {
         ItemStack construction_wand_item = new ItemStack(Material.STICK);
         ItemMeta construction_wand_meta = construction_wand_item.getItemMeta();
-        construction_wand_meta.setDisplayName(ChatColor.AQUA + "Staff of Teleportation");
+        construction_wand_meta.setDisplayName(ChatColor.AQUA + "Construction Wand");
         construction_wand_meta.setCustomModelData(1);
         construction_wand_item.setItemMeta(construction_wand_meta);
         return construction_wand_item;
