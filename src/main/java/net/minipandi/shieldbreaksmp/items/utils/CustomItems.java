@@ -7,6 +7,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 @SuppressWarnings("deprecation")
 public class CustomItems {
+    public static ItemStack filler() {
+        ItemStack filler_item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta filler_meta = filler_item.getItemMeta();
+        filler_meta.setDisplayName(" ");
+        filler_item.setItemMeta(filler_meta);
+        return filler_item;
+    }
+
     public static ItemStack staff_of_teleportation_item() {
         ItemStack staff_of_teleportation_item = new ItemStack(Material.DIAMOND_SHOVEL);
         ItemMeta staff_of_teleportation_meta = staff_of_teleportation_item.getItemMeta();
@@ -36,7 +44,7 @@ public class CustomItems {
 
     public static ItemStack backpack_item() {
         ItemStack backpack_item = new ItemStack(Material.ENDER_CHEST);
-        ItemMeta backpack_meta = backpack_item().getItemMeta();
+        ItemMeta backpack_meta = backpack_item.getItemMeta();
         backpack_meta.setDisplayName(ChatColor.AQUA + "Backpack");
         backpack_meta.setCustomModelData(4);
         backpack_item.setItemMeta(backpack_meta);

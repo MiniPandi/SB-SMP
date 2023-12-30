@@ -31,9 +31,12 @@ public final class Main extends JavaPlugin {
     public static AirJump airJump;
     private ProtocolManager protocolManager;
     public static Map<Player, Integer> energy = new HashMap<>();
+    private static Main main;
 
     @Override
     public void onEnable() {
+        main = this;
+
         registerCommands("customItems", new CustomItemsCmd());
         registerEvents(new staffOfTeleportation(), this);
         registerEvents(new constructionWand(), this);
@@ -121,5 +124,9 @@ public final class Main extends JavaPlugin {
                 }
             }
         }, 0L, 20L);
+    }
+
+    public static Main main() {
+        return main;
     }
 }
