@@ -17,25 +17,34 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.Objects;
+import java.util.Base64;
 
 @SuppressWarnings("deprecation")
 public class backpack implements Listener {
+    private ItemStack itemInHand;
+
     @EventHandler
     public void onUse(PlayerInteractEvent e) {
         ItemStack item = e.getItem();
+        itemInHand = e.getItem();
         if (e.getAction().isRightClick()) {
             if (item != null && item.getType() != Material.AIR) {
                 if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                     if (item.getType().equals(Material.ENDER_CHEST) && item.getItemMeta().getCustomModelData() == 4) {
-                        Inventory inv = Bukkit.createInventory(e.getPlayer(), 18, ChatColor.BLACK + "Backpack");
+                        if (getString(itemInHand, "backpack") == null) {
+                            Inventory inv = Bukkit.createInventory(e.getPlayer(), 18, ChatColor.BLACK + "Backpack");
 
-                        inv.setItem(1, CustomItems.filler());
-                        inv.setItem(10, CustomItems.filler());
+                            inv.setItem(1, CustomItems.filler());
+                            inv.setItem(10, CustomItems.filler());
 
-                        e.getPlayer().openInventory(inv);
+                            e.getPlayer().openInventory(inv);
+                        } else {
+                            Inventory inv = ConvertInv.StringToInv(getString(itemInHand, "backpack"));
+                            e.getPlayer().openInventory(inv);
+                        }
                     }
                 }
             }
@@ -54,35 +63,68 @@ public class backpack implements Listener {
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
         if (e.isLeftClick() || e.isRightClick() || e.isShiftClick()) {
-            if (Objects.requireNonNull(e.getCurrentItem()).equals(CustomItems.filler())) {
-                e.setCancelled(true);
+            if (!(e.getCurrentItem() == null)) {
+                if (e.getCurrentItem().equals(CustomItems.filler())) {
+                    e.setCancelled(true);
+                }
+            } else {
+                Bukkit.getServer().getLogger().info("Null");
             }
         }
     }
 
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
-        InventoryView inv = e.getView();
-        Inventory inToSave = e.getInventory();
-        if (inv.getTitle().equals(ChatColor.BLACK + "Backpack")) {
-            ConvertInv.InvToString(inToSave);
+        InventoryView invV = e.getView();
+        if (invV.getTitle().equals(ChatColor.BLACK + "Backpack")) {
+            Player player = (Player) e.getPlayer();
+            ItemStack iIH = player.getInventory().getItemInMainHand();
+            if (iIH != null && iIH.getType().equals(Material.ENDER_CHEST) && iIH.getItemMeta().getCustomModelData() == 4) {
+                Inventory inv = e.getInventory();
+                String serialisedInv = serializeInventory(inv);
+                saveInventoryToItem(iIH, serialisedInv);
+            }
         }
     }
 
-    public void saveString(ItemStack item, String key, String value) {
-        item.getItemMeta().getPersistentDataContainer().set(
-                new NamespacedKey(Main.main(), key),
-                PersistentDataType.STRING,
-                value
-        );
+    private String serializeInventory(Inventory inventory) {
+        StringBuilder serializedInventory = new StringBuilder();
+        for (ItemStack itemStack : inventory.getContents()) {
+            if (itemStack != null) {
+                serializedInventory.append(Base64.getEncoder().encodeToString(itemStack.serializeAsBytes()));
+                serializedInventory.append(";");
+            } else {
+                serializedInventory.append("null;");
+            }
+        }
+        return serializedInventory.toString();
     }
 
-    public String getString(ItemStack item, String key) {
-        if (item.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(Main.main(), key), PersistentDataType.STRING)) {
-            return item.getItemMeta().getPersistentDataContainer().get(
-                    new NamespacedKey(Main.main(), key),
-                    PersistentDataType.STRING
-            );
+    private Inventory deserializeInventory(String serializedInventory) {
+        Inventory inventory = Bukkit.createInventory(null, 9 * 3); // Change size as needed
+        String[] serializedItems = serializedInventory.split(";");
+        int i = 0;
+        for (String serializedItem : serializedItems) {
+            if (!serializedItem.equals("null")) {
+                byte[] itemBytes = Base64.getDecoder().decode(serializedItem);
+                ItemStack itemStack = ItemStack.deserializeBytes(itemBytes);
+                inventory.setItem(i, itemStack);
+            }
+            i++;
+        }
+        return inventory;
+    }
+
+    private void saveInventoryToItem(ItemStack itemStack, String serializedInventory) {
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.getPersistentDataContainer().set(new NamespacedKey(Main.main(), "inventory"), PersistentDataType.STRING, serializedInventory);
+        itemStack.setItemMeta(meta);
+    }
+
+    private String loadInventoryFromItem(ItemStack itemStack) {
+        ItemMeta meta = itemStack.getItemMeta();
+        if (meta.getPersistentDataContainer().has(new NamespacedKey(Main.main(), "inventory"), PersistentDataType.STRING)) {
+            return meta.getPersistentDataContainer().get(new NamespacedKey(Main.main(), "inventory"), PersistentDataType.STRING);
         }
         return null;
     }
