@@ -22,16 +22,13 @@ public class constructionWand implements Listener {
                         Player player = e.getPlayer();
                         Block block = e.getClickedBlock();
                         if (block == null) {
-                            Bukkit.getServer().getLogger().severe("The block is null!");
+                            //Bukkit.getServer().getLogger().severe("The block is null!");
                         } else {
                             ItemStack iblock = new ItemStack(block.getType());
                             if (player.getInventory().contains(iblock.getType()) || player.getGameMode().equals(GameMode.CREATIVE)) {
                                 Location locblock = e.getClickedBlock().getLocation();
-                                locblock.setYaw(-player.getLocation().getYaw());
-                                locblock.setPitch(-player.getLocation().getPitch());
-                                if (locblock.add(0, 1, 0).getBlock().isSolid()) {
-                                    player.sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Solid Block Above"));
-                                } else {
+                                if (locblock.add(e.getBlockFace().getDirection().normalize()).getBlock().isEmpty()) {
+
                                     locblock.getBlock().setType(block.getType());
                                 }
                                 if (!player.getGameMode().equals(GameMode.CREATIVE)) {
@@ -42,7 +39,7 @@ public class constructionWand implements Listener {
                                     });
                                 }
                             } else {
-                                e.getPlayer().sendMessage(ChatColor.RED + "You don't have enough blocks!");
+                                e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You don't have enough blocks!"));
                                 e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);
                             }
                         }

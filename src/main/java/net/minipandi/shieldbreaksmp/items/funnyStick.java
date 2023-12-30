@@ -1,6 +1,8 @@
 package net.minipandi.shieldbreaksmp.items;
 
-import org.bukkit.Material;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -20,7 +22,15 @@ public class funnyStick implements Listener {
                                 /*if (item.getEnchantments().containsKey(Main.airJump)) {
                                     Integer lvl = item.getEnchantments().get(Main.airJump);
                                 }*/
+                                Location loc = e.getPlayer().getLocation();
+                                World world = e.getPlayer().getServer().getWorlds().get(0);
+
+                                world.spawnParticle(Particle.EXPLOSION_HUGE, loc, 3);
+                                world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f);
+
                                 e.getPlayer().setVelocity(e.getPlayer().getEyeLocation().getDirection().multiply(-10.0));
+                            } else {
+                                e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You can't use it while you are in the air!"));
                             }
                         }
                     }
