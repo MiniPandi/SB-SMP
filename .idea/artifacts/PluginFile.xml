@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="PluginFile">
-    <output-path>$PROJECT_DIR$/server/plugins</output-path>
-    <root id="archive" name="PluginFile.jar">
-      <element id="module-output" name="ShieldBreakSMP" />
-    </root>
-  </artifact>
-</component>

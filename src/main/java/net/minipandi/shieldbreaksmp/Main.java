@@ -6,10 +6,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
-import net.minipandi.shieldbreaksmp.items.backpack;
-import net.minipandi.shieldbreaksmp.items.constructionWand;
-import net.minipandi.shieldbreaksmp.items.funnyStick;
-import net.minipandi.shieldbreaksmp.items.staffOfTeleportation;
+import net.minipandi.shieldbreaksmp.items.*;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
 import net.minipandi.shieldbreaksmp.listener.joinListener;
 import org.bukkit.Bukkit;
@@ -43,6 +40,7 @@ public final class Main extends JavaPlugin {
         registerEvents(new funnyStick(), this);
         registerEvents(new joinListener(), this);
         registerEvents(new backpack(), this);
+        registerEvents(new StorageItem(), this);
 
         airJump = new AirJump(new NamespacedKey(this, "AirJump"));
         registerEnchantment(airJump);
