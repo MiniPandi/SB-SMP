@@ -3,6 +3,7 @@ package net.minipandi.shieldbreaksmp;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
 import net.minipandi.shieldbreaksmp.items.constructionWand;
+import net.minipandi.shieldbreaksmp.items.funnyStick;
 import net.minipandi.shieldbreaksmp.items.staffOfTeleportation;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
 import org.bukkit.Bukkit;
@@ -26,6 +27,7 @@ public final class Main extends JavaPlugin {
         registerCommands("customItems", new CustomItemsCmd());
         registerEvents(new staffOfTeleportation(), this);
         registerEvents(new constructionWand(), this);
+        registerEvents(new funnyStick(), this);
 
         airJump = new AirJump(new NamespacedKey(this, "AirJump"));
         registerEnchantment(airJump);
