@@ -28,7 +28,10 @@ public class CustomItemsCmd implements TabExecutor {
                             player.getInventory().addItem(CustomItems.construction_wand_item());
                             break;
                         case "Funny_Stick":
-                            player.getInventory().addItem(CustomItems.funny_stick());
+                            player.getInventory().addItem(CustomItems.funny_stick_item());
+                            break;
+                        case "Backpack":
+                            player.getInventory().addItem(CustomItems.backpack_item());
                             break;
                     }
                 } else {
@@ -36,6 +39,7 @@ public class CustomItemsCmd implements TabExecutor {
                     player.sendMessage(ChatColor.GREEN + "Staff of Teleportation Custom Model Data: 1");
                     player.sendMessage(ChatColor.GREEN + "Construction Wand Custom Model Data: 2");
                     player.sendMessage(ChatColor.GREEN + "Funny Stick Custom Model Data: 3");
+                    player.sendMessage(ChatColor.GREEN + "Backpack Custom Model Data: 4");
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
                 }
             }
@@ -52,6 +56,7 @@ public class CustomItemsCmd implements TabExecutor {
             list.add("Staff_of_Teleportation");
             list.add("Construction_Wand");
             list.add("Funny_Stick");
+            list.add("Backpack");
         }
         ArrayList<String> current = new ArrayList<>();
         String currentarg = args[args.length - 1].toLowerCase();

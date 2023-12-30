@@ -6,3 +6,4 @@ depend: [ ProtocolLib ]
 commands:
   customItems:
     permission: customItems.give
+  test:

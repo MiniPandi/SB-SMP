@@ -2,28 +2,35 @@ package net.minipandi.shieldbreaksmp;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
+import net.minipandi.shieldbreaksmp.items.backpack;
 import net.minipandi.shieldbreaksmp.items.constructionWand;
 import net.minipandi.shieldbreaksmp.items.funnyStick;
 import net.minipandi.shieldbreaksmp.items.staffOfTeleportation;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
+import net.minipandi.shieldbreaksmp.listener.joinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
     public static AirJump airJump;
     private ProtocolManager protocolManager;
+    public static Map<Player, Integer> energy = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -31,6 +38,8 @@ public final class Main extends JavaPlugin {
         registerEvents(new staffOfTeleportation(), this);
         registerEvents(new constructionWand(), this);
         registerEvents(new funnyStick(), this);
+        registerEvents(new joinListener(), this);
+        registerEvents(new backpack(), this);
 
         airJump = new AirJump(new NamespacedKey(this, "AirJump"));
         registerEnchantment(airJump);
@@ -40,6 +49,7 @@ public final class Main extends JavaPlugin {
 
         CustomItemsRecipe.sofRecepice();
         CustomItemsRecipe.cwRecepice();
+        energyTimer();
     }
 
     @SuppressWarnings("unchecked")
@@ -86,5 +96,30 @@ public final class Main extends JavaPlugin {
             e.printStackTrace();
         }
         if (registered) ; // It's been registered!
+    }
+
+    public void energyTimer() {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+            @Override
+            public void run() {
+                for (Map.Entry<Player, Integer> entry : energy.entrySet()) {
+                    Player key = entry.getKey();
+                    Integer value = entry.getValue();
+                    if (value < 2000) {
+                        value += 10;
+                        energy.put(key, value);
+                    }
+                }
+            }
+        }, 0L, 2 * 20L);
+
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Energy: " + energy.get(p) + "/2000"));
+                }
+            }
+        }, 0L, 20L);
     }
 }

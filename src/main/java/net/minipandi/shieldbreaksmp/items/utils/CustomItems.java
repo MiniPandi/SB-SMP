@@ -25,12 +25,21 @@ public class CustomItems {
         return construction_wand_item;
     }
 
-    public static ItemStack funny_stick() {
+    public static ItemStack funny_stick_item() {
         ItemStack funny_stick_item = new ItemStack(Material.STICK);
         ItemMeta funny_stick_meta = funny_stick_item.getItemMeta();
         funny_stick_meta.setDisplayName(ChatColor.GOLD + "Funny Stick");
         funny_stick_meta.setCustomModelData(3);
         funny_stick_item.setItemMeta(funny_stick_meta);
         return funny_stick_item;
+    }
+
+    public static ItemStack backpack_item() {
+        ItemStack backpack_item = new ItemStack(Material.ENDER_CHEST);
+        ItemMeta backpack_meta = backpack_item().getItemMeta();
+        backpack_meta.setDisplayName(ChatColor.AQUA + "Backpack");
+        backpack_meta.setCustomModelData(4);
+        backpack_item.setItemMeta(backpack_meta);
+        return backpack_item;
     }
 }

@@ -57,7 +57,7 @@ public class AirJump extends Enchantment implements Listener {
 
     @Override
     public boolean canEnchantItem(@NotNull ItemStack itemStack) {
-        return itemStack.equals(CustomItems.funny_stick());
+        return itemStack.equals(CustomItems.funny_stick_item());
 
     }
 

@@ -2,6 +2,7 @@ package net.minipandi.shieldbreaksmp.items;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minipandi.shieldbreaksmp.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -21,9 +22,20 @@ public class staffOfTeleportation implements Listener {
                     if (item.getItemMeta().hasCustomModelData()) {
                         if (item.getType().equals(Material.DIAMOND_SHOVEL) && item.getItemMeta().getCustomModelData() == 1) {
                             if (e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)).getBlock().isPassable()) {
-                                e.getPlayer().setAllowFlight(true);
-                                e.getPlayer().teleport(e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)));
-                                e.getPlayer().setAllowFlight(false);
+                                Integer value = Main.energy.get(e.getPlayer());
+                                if (value >= 50) {
+                                    value -= 50;
+                                    Main.energy.put(e.getPlayer(), value);
+                                    if (!e.getPlayer().getAllowFlight()) {
+                                        e.getPlayer().setAllowFlight(true);
+                                        e.getPlayer().teleport(e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)));
+                                        e.getPlayer().setAllowFlight(false);
+                                    } else {
+                                        e.getPlayer().teleport(e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)));
+                                    }
+                                } else {
+                                    e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Not enough energy!"));
+                                }
                             } else {
                                 e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You can not teleport in to blocks"));
                                 e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);

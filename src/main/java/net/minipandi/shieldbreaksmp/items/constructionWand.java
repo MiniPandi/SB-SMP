@@ -2,6 +2,7 @@ package net.minipandi.shieldbreaksmp.items;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minipandi.shieldbreaksmp.Main;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -27,16 +28,22 @@ public class constructionWand implements Listener {
                             ItemStack iblock = new ItemStack(block.getType());
                             if (player.getInventory().contains(iblock.getType()) || player.getGameMode().equals(GameMode.CREATIVE)) {
                                 Location locblock = e.getClickedBlock().getLocation();
-                                if (locblock.add(e.getBlockFace().getDirection().normalize()).getBlock().isEmpty()) {
-
-                                    locblock.getBlock().setType(block.getType());
-                                }
-                                if (!player.getGameMode().equals(GameMode.CREATIVE)) {
-                                    player.getInventory().forEach(itemStack -> {
-                                        if (itemStack != null && itemStack.getType().equals(iblock.getType())) {
-                                            itemStack.setAmount(itemStack.getAmount() - 1);
-                                        }
-                                    });
+                                Integer value = Main.energy.get(e.getPlayer());
+                                if (value >= 20) {
+                                    value -= 20;
+                                    Main.energy.put(e.getPlayer(), value);
+                                    if (locblock.add(e.getBlockFace().getDirection().normalize()).getBlock().isEmpty()) {
+                                        locblock.getBlock().setType(block.getType());
+                                    }
+                                    if (!player.getGameMode().equals(GameMode.CREATIVE)) {
+                                        player.getInventory().forEach(itemStack -> {
+                                            if (itemStack != null && itemStack.getType().equals(iblock.getType())) {
+                                                itemStack.setAmount(itemStack.getAmount() - 1);
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Not enough energy!"));
                                 }
                             } else {
                                 e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You don't have enough blocks!"));
