@@ -1,5 +1,7 @@
 package net.minipandi.shieldbreaksmp;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
 import net.minipandi.shieldbreaksmp.items.constructionWand;
@@ -21,6 +23,7 @@ import java.util.Objects;
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
     public static AirJump airJump;
+    private ProtocolManager protocolManager;
 
     @Override
     public void onEnable() {
@@ -31,6 +34,9 @@ public final class Main extends JavaPlugin {
 
         airJump = new AirJump(new NamespacedKey(this, "AirJump"));
         registerEnchantment(airJump);
+
+        protocolManager = ProtocolLibrary.getProtocolManager();
+        getLogger().info(protocolManager.getMinecraftVersion().toString());
 
         CustomItemsRecipe.sofRecepice();
         CustomItemsRecipe.cwRecepice();
