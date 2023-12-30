@@ -20,17 +20,22 @@ public class CustomItemsCmd implements TabExecutor {
             Player player = (Player) sender;
             if (player.hasPermission("customItems.give")) {
                 if (args.length == 1) {
-                    if (args[0].equals("Staff_of_Teleportation")) {
-                        player.getInventory().addItem(CustomItems.staff_of_teleportation_item());
-                    } else if (args[0].equals("Construction_Wand")) {
-                        player.getInventory().addItem(CustomItems.construction_wand_item());
-                    } else if (args[0].equals("Funny_Stick")) {
-                        player.getInventory().addItem(CustomItems.funny_stick());
+                    switch (args[0]) {
+                        case "Staff_of_Teleportation":
+                            player.getInventory().addItem(CustomItems.staff_of_teleportation_item());
+                            break;
+                        case "Construction_Wand":
+                            player.getInventory().addItem(CustomItems.construction_wand_item());
+                            break;
+                        case "Funny_Stick":
+                            player.getInventory().addItem(CustomItems.funny_stick());
+                            break;
                     }
                 } else {
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
                     player.sendMessage(ChatColor.GREEN + "Staff of Teleportation Custom Model Data: 1");
                     player.sendMessage(ChatColor.GREEN + "Construction Wand Custom Model Data: 2");
+                    player.sendMessage(ChatColor.GREEN + "Funny Stick Custom Model Data: 3");
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
                 }
             }
