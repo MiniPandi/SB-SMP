@@ -51,7 +51,6 @@ public class CustomItemsCmd implements TabExecutor {
         if (args.length == 1) {
             list.add("Staff_of_Teleportation");
             list.add("Construction_Wand");
-            list.add("Funny_Stick");
         }
         ArrayList<String> current = new ArrayList<>();
         String currentarg = args[args.length - 1].toLowerCase();

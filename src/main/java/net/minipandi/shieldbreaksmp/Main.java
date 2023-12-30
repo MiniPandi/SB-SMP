@@ -1,6 +1,5 @@
 package net.minipandi.shieldbreaksmp;
 
-import net.minipandi.shieldbreaksmp.CustomEnchantmens.AirJump;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
 import net.minipandi.shieldbreaksmp.items.constructionWand;
@@ -18,9 +17,8 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Objects;
 
+@SuppressWarnings("all")
 public final class Main extends JavaPlugin {
-    public static AirJump airJump;
-
     public static AirJump airJump;
 
     @Override

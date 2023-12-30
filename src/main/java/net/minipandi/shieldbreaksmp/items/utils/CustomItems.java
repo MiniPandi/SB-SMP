@@ -24,6 +24,7 @@ public class CustomItems {
         construction_wand_item.setItemMeta(construction_wand_meta);
         return construction_wand_item;
     }
+
     public static ItemStack funny_stick() {
         ItemStack funny_stick_item = new ItemStack(Material.STICK);
         ItemMeta funny_stick_meta = funny_stick_item.getItemMeta();
