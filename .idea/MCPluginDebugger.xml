@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MCPluginDebuggerConfig">
+    <option name="serverJarFile" value="C:\Users\etsee\IdeaProjects\sb\SB-SMP\server\server.jar" />
+    <option name="pluginJarFile" value="C:\Users\etsee\IdeaProjects\sb\SB-SMP\target\ShieldBreakSMP-1.0-SNAPSHOT.jar" />
+    <option name="pluginName" value="ShieldBreakSMP" />
+    <option name="host" value="0.0.0.0" />
+    <option name="port" value="25565" />
+  </component>
+</project>
