@@ -1,5 +1,7 @@
 package net.minipandi.shieldbreaksmp.items;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -26,6 +28,7 @@ public class constructionWand implements Listener {
                             if (player.getInventory().contains(iblock.getType()) || player.getGameMode().equals(GameMode.CREATIVE)) {
                                 Location locblock = e.getClickedBlock().getLocation();
                                 if (locblock.add(e.getBlockFace().getDirection().normalize()).getBlock().isEmpty()) {
+
                                     locblock.getBlock().setType(block.getType());
                                 }
                                 if (!player.getGameMode().equals(GameMode.CREATIVE)) {
@@ -36,7 +39,7 @@ public class constructionWand implements Listener {
                                     });
                                 }
                             } else {
-                                e.getPlayer().sendMessage(ChatColor.RED + "You don't have enough blocks!");
+                                e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You don't have enough blocks!"));
                                 e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);
                             }
                         }

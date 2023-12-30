@@ -19,9 +19,11 @@ public class staffOfTeleportation implements Listener {
             if (item != null && item.getType() != Material.AIR) {
                 if (item.getItemMeta() != null) {
                     if (item.getItemMeta().hasCustomModelData()) {
-                        if (item.getType().equals(Material.STICK) && item.getItemMeta().getCustomModelData() == 1) {
+                        if (item.getType().equals(Material.DIAMOND_SHOVEL) && item.getItemMeta().getCustomModelData() == 1) {
                             if (e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)).getBlock().isPassable()) {
+                                e.getPlayer().setAllowFlight(true);
                                 e.getPlayer().teleport(e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)));
+                                e.getPlayer().setAllowFlight(false);
                             } else {
                                 e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "You can not teleport in to blocks"));
                                 e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_ANVIL_LAND, 20, 1);

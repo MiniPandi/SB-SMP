@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 @SuppressWarnings("deprecation")
 public class CustomItems {
     public static ItemStack staff_of_teleportation_item() {
-        ItemStack staff_of_teleportation_item = new ItemStack(Material.STICK);
+        ItemStack staff_of_teleportation_item = new ItemStack(Material.DIAMOND_SHOVEL);
         ItemMeta staff_of_teleportation_meta = staff_of_teleportation_item.getItemMeta();
         staff_of_teleportation_meta.setDisplayName(ChatColor.DARK_PURPLE + "Staff of Teleportation");
         staff_of_teleportation_meta.setCustomModelData(1);
