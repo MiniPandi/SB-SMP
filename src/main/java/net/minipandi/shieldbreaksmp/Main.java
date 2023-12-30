@@ -24,18 +24,20 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("customItems").setExecutor(new CustomItemsCmd());
-        Bukkit.getPluginManager().registerEvents(new listener(), this);
+        registerCommands("customItems", new CustomItemsCmd());
+        registerEvents(new staffOfTeleportation(), this);
+        registerEvents(new constructionWand(), this);
 
-        airJump = new AirJump(new NamespacedKey(this, "AirJump"));
-        registerEnchantment(airJump);
+        CustomItemsRecipe.sofRecepice();
+        CustomItemsRecipe.cwRecepice();
+    }
 
-        ShapedRecipe staff_of_teleportation = new ShapedRecipe(NamespacedKey.fromString("staff_of_teleportation"), CustomItems.staff_of_teleportation_item());
-        staff_of_teleportation.shape("eee","ese","eee");
-        staff_of_teleportation.setIngredient('e', Material.ENDER_PEARL);
-        staff_of_teleportation.setIngredient('s', Material.STICK);
-        staff_of_teleportation.setCategory(CraftingBookCategory.EQUIPMENT);
-        Bukkit.addRecipe(staff_of_teleportation);
+    public void registerEvents(Listener listener, Plugin plugin) {
+        Bukkit.getPluginManager().registerEvents(listener, plugin);
+    }
+
+    public void registerCommands(String name, CommandExecutor commandExecutor) {
+        Objects.requireNonNull(this.getCommand(name)).setExecutor(commandExecutor);
     }
 
     @Override
