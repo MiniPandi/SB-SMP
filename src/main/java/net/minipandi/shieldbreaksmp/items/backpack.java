@@ -1,7 +1,6 @@
 package net.minipandi.shieldbreaksmp.items;
 
 import net.minipandi.shieldbreaksmp.Main;
-import net.minipandi.shieldbreaksmp.items.utils.ConvertInv;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItems;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,25 +23,24 @@ import java.util.Base64;
 
 @SuppressWarnings("deprecation")
 public class backpack implements Listener {
-    private ItemStack itemInHand;
 
     @EventHandler
     public void onUse(PlayerInteractEvent e) {
         ItemStack item = e.getItem();
-        itemInHand = e.getItem();
+        ItemStack itemInHand = e.getItem();
         if (e.getAction().isRightClick()) {
             if (item != null && item.getType() != Material.AIR) {
                 if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                     if (item.getType().equals(Material.ENDER_CHEST) && item.getItemMeta().getCustomModelData() == 4) {
-                        if (getString(itemInHand, "backpack") == null) {
+                        if (loadInventoryFromItem(itemInHand) != null) {
+                            Inventory inv = deserializeInventory(loadInventoryFromItem(itemInHand));
+                            e.getPlayer().openInventory(inv);
+                        } else {
                             Inventory inv = Bukkit.createInventory(e.getPlayer(), 18, ChatColor.BLACK + "Backpack");
 
                             inv.setItem(1, CustomItems.filler());
                             inv.setItem(10, CustomItems.filler());
 
-                            e.getPlayer().openInventory(inv);
-                        } else {
-                            Inventory inv = ConvertInv.StringToInv(getString(itemInHand, "backpack"));
                             e.getPlayer().openInventory(inv);
                         }
                     }
@@ -83,6 +81,7 @@ public class backpack implements Listener {
                 Inventory inv = e.getInventory();
                 String serialisedInv = serializeInventory(inv);
                 saveInventoryToItem(iIH, serialisedInv);
+                Bukkit.getServer().getLogger().info("String" + serialisedInv);
             }
         }
     }
@@ -101,7 +100,7 @@ public class backpack implements Listener {
     }
 
     private Inventory deserializeInventory(String serializedInventory) {
-        Inventory inventory = Bukkit.createInventory(null, 9 * 3); // Change size as needed
+        Inventory inventory = Bukkit.createInventory(null, 9 * 2, ChatColor.BLACK + "Backpack"); // Change size as needed
         String[] serializedItems = serializedInventory.split(";");
         int i = 0;
         for (String serializedItem : serializedItems) {
