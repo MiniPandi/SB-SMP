@@ -59,4 +59,13 @@ public class CustomItems {
         storage_item.setItemMeta(storage_meta);
         return storage_item;
     }
+
+    public static ItemStack backpack_energy_upgrade() {
+        ItemStack backpack_energy_upgrade_item = new ItemStack(Material.CAKE);
+        ItemMeta backpack_energy_upgrade_meta = backpack_energy_upgrade_item.getItemMeta();
+        backpack_energy_upgrade_meta.setDisplayName(ChatColor.GREEN + "Backpack Storage Upgrade");
+        backpack_energy_upgrade_meta.setCustomModelData(6);
+        backpack_energy_upgrade_item.setItemMeta(backpack_energy_upgrade_meta);
+        return backpack_energy_upgrade_item;
+    }
 }

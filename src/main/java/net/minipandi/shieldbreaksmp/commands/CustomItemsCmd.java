@@ -35,6 +35,9 @@ public class CustomItemsCmd implements TabExecutor {
                             break;
                         case "Storage_Chest":
                             player.getInventory().addItem(CustomItems.storage_item());
+                            break;
+                        case "Backpack_Energy_Upgrade":
+                            player.getInventory().addItem(CustomItems.backpack_energy_upgrade());
                     }
                 } else {
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
@@ -43,6 +46,7 @@ public class CustomItemsCmd implements TabExecutor {
                     player.sendMessage(ChatColor.GREEN + "Funny Stick Custom Model Data: 3");
                     player.sendMessage(ChatColor.GREEN + "Backpack Custom Model Data: 4");
                     player.sendMessage(ChatColor.GREEN + "Storage Item Custom Model Data: 5");
+                    player.sendMessage(ChatColor.GREEN + "Backpack Energy Upgrade Item Custom Model Data: 6");
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
                 }
             }
@@ -61,6 +65,7 @@ public class CustomItemsCmd implements TabExecutor {
             list.add("Funny_Stick");
             list.add("Backpack");
             list.add("Storage_Chest");
+            list.add("Backpack_Energy_Upgrade");
         }
         ArrayList<String> current = new ArrayList<>();
         String currentarg = args[args.length - 1].toLowerCase();

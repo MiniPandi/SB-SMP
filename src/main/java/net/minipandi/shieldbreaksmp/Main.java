@@ -5,6 +5,7 @@ import com.comphenix.protocol.ProtocolManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
+import net.minipandi.shieldbreaksmp.commands.energyCommand;
 import net.minipandi.shieldbreaksmp.enchants.AirJump;
 import net.minipandi.shieldbreaksmp.items.*;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
@@ -28,6 +29,7 @@ public final class Main extends JavaPlugin {
     public static AirJump airJump;
     private ProtocolManager protocolManager;
     public static Map<Player, Integer> energy = new HashMap<>();
+    public static Map<Player, Integer> morespace = new HashMap<>();
     private static Main main;
 
     @Override
@@ -35,12 +37,14 @@ public final class Main extends JavaPlugin {
         main = this;
 
         registerCommands("customItems", new CustomItemsCmd());
+        registerCommands("energy", new energyCommand());
         registerEvents(new staffOfTeleportation(), this);
         registerEvents(new constructionWand(), this);
         registerEvents(new funnyStick(), this);
         registerEvents(new joinListener(), this);
         registerEvents(new backpack(), this);
         registerEvents(new StorageItem(), this);
+        registerEvents(new backpack_energy_upgrade(), this);
 
         airJump = new AirJump(new NamespacedKey(this, "AirJump"));
         registerEnchantment(airJump);
@@ -108,9 +112,23 @@ public final class Main extends JavaPlugin {
                 for (Map.Entry<Player, Integer> entry : energy.entrySet()) {
                     Player key = entry.getKey();
                     Integer value = entry.getValue();
-                    if (value < 2000) {
-                        value += 10;
-                        energy.put(key, value);
+                    if (!morespace.isEmpty()) {
+                        if (morespace.containsKey(key) && !morespace.get(key).equals(0)) {
+                            Integer multiplier = morespace.get(key);
+                            Integer maxvalue = 2000 * multiplier;
+                            if (value < maxvalue) {
+                                value += 10;
+                                energy.put(key, value);
+                            }
+                        } else if (value < 2000) {
+                            value += 10;
+                            energy.put(key, value);
+                        }
+                    } else {
+                        if (value < 2000) {
+                            value += 10;
+                            energy.put(key, value);
+                        }
                     }
                 }
             }
@@ -120,7 +138,14 @@ public final class Main extends JavaPlugin {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Energy: " + energy.get(p) + "/2000"));
+                    Integer maxvalue = 2000;
+                    if (!morespace.isEmpty()) {
+                        if (!morespace.get(p).equals(0)) {
+                            Integer multiplier = morespace.get(p);
+                            maxvalue *= multiplier;
+                        }
+                    }
+                    p.sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("Energy: " + energy.get(p) + "/" + maxvalue));
                 }
             }
         }, 0L, 20L);

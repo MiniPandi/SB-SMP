@@ -48,7 +48,10 @@ public class backpack implements Listener {
     public void onPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
         ItemStack iIH = player.getItemInHand();
+        ItemStack iIO = player.getInventory().getItemInOffHand();
         if (iIH.getItemMeta().getCustomModelData() == 4 && iIH.getType().equals(Material.ENDER_CHEST)) {
+            e.setCancelled(true);
+        } else if (iIO.getItemMeta().getCustomModelData() == 4 && iIO.getType().equals(Material.ENDER_CHEST)) {
             e.setCancelled(true);
         }
     }
@@ -56,12 +59,12 @@ public class backpack implements Listener {
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
         if (e.isLeftClick() || e.isRightClick() || e.isShiftClick()) {
-            if (!(e.getCurrentItem() == null)) {
+            if (!(e.getCurrentItem() == null) && e.getView().getTitle().equals(ChatColor.BLACK + "Backpack")) {
                 if (e.getCurrentItem().equals(CustomItems.filler())) {
                     e.setCancelled(true);
+                } else if (e.getCurrentItem().getType().equals(Material.ENDER_CHEST) && e.getCurrentItem().getItemMeta().getCustomModelData() == 4) {
+                    e.setCancelled(true);
                 }
-            } else {
-                Bukkit.getServer().getLogger().info("Null");
             }
         }
     }
