@@ -21,7 +21,7 @@ public class staffOfTeleportation implements Listener {
                 if (item.getItemMeta() != null) {
                     if (item.getItemMeta().hasCustomModelData()) {
                         if (item.getType().equals(Material.DIAMOND_SHOVEL) && item.getItemMeta().getCustomModelData() == 1) {
-                            if (e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)).getBlock().isPassable()) {
+                            if (!e.getPlayer().getLocation().add(e.getPlayer().getLocation().getDirection().normalize().multiply(5)).getBlock().isSolid()) {
                                 Integer value = Main.energy.get(e.getPlayer());
                                 if (value >= 50) {
                                     value -= 50;

@@ -34,6 +34,7 @@ public class funnyStick implements Listener {
                                     world.playSound(loc, Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f);
 
                                     e.getPlayer().setVelocity(e.getPlayer().getEyeLocation().getDirection().multiply(-10.0));
+
                                 } else {
                                     e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Not enough energy!"));
                                 }
