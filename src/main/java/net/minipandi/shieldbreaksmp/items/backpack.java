@@ -28,7 +28,7 @@ public class backpack implements Listener {
                 if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                     if (item.getType().equals(Material.ENDER_CHEST) && item.getItemMeta().getCustomModelData() == 4) {
                         if (ConvertInv.loadInventoryFromItem(itemInHand) != null) {
-                            Inventory inv = ConvertInv.deserializeInventory(ConvertInv.loadInventoryFromItem(itemInHand), ChatColor.BLACK + "Backpack");
+                            Inventory inv = ConvertInv.deserializeInventory(ConvertInv.loadInventoryFromItem(itemInHand), ChatColor.BLACK + "Backpack", 2, e.getPlayer());
                             e.getPlayer().openInventory(inv);
                         } else {
                             Inventory inv = Bukkit.createInventory(e.getPlayer(), 18, ChatColor.BLACK + "Backpack");

@@ -14,6 +14,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("deprecation")
 public class StorageItem implements Listener {
     @EventHandler
     public void onUse(PlayerInteractEvent e) {
@@ -24,7 +25,7 @@ public class StorageItem implements Listener {
                 if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                     if (item.getType().equals(Material.CHEST) && item.getItemMeta().getCustomModelData() == 5) {
                         if (ConvertInv.loadInventoryFromItem(itemInHand) != null) {
-                            Inventory inv = ConvertInv.deserializeInventory(ConvertInv.loadInventoryFromItem(itemInHand), ChatColor.GREEN + "StorageChest");
+                            Inventory inv = ConvertInv.deserializeInventory(ConvertInv.loadInventoryFromItem(itemInHand), ChatColor.GREEN + "StorageChest", 6, e.getPlayer());
                             e.getPlayer().openInventory(inv);
                         } else {
                             Inventory inv = Bukkit.createInventory(e.getPlayer(), 54, ChatColor.GREEN + "StorageChest");

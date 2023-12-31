@@ -3,6 +3,7 @@ package net.minipandi.shieldbreaksmp.items.utils;
 import net.minipandi.shieldbreaksmp.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,8 +26,8 @@ public class ConvertInv {
         return serializedInventory.toString();
     }
 
-    public static Inventory deserializeInventory(String serializedInventory, String title) {
-        Inventory inventory = Bukkit.createInventory(null, 9 * 2, title);
+    public static Inventory deserializeInventory(String serializedInventory, String title, Integer size_in_rows, Player owner) {
+        Inventory inventory = Bukkit.createInventory(owner, 9 * size_in_rows, title);
         String[] serializedItems = serializedInventory.split(";");
         int i = 0;
         for (String serializedItem : serializedItems) {

@@ -52,7 +52,7 @@ public class CustomItems {
     }
 
     public static ItemStack storage_item() {
-        ItemStack storage_item = new ItemStack(Material.ENDER_CHEST);
+        ItemStack storage_item = new ItemStack(Material.CHEST);
         ItemMeta storage_meta = storage_item.getItemMeta();
         storage_meta.setDisplayName(ChatColor.GREEN + "StorageChest");
         storage_meta.setCustomModelData(5);

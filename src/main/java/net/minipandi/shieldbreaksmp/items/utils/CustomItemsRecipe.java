@@ -26,4 +26,24 @@ public class CustomItemsRecipe {
         construction_wand.setCategory(CraftingBookCategory.BUILDING);
         Bukkit.addRecipe(construction_wand);
     }
+
+    public static void siRecepice() {
+        ShapedRecipe storage_chest = new ShapedRecipe(Objects.requireNonNull(NamespacedKey.fromString("storage_chest")), CustomItems.storage_item());
+        storage_chest.shape("lll", "tbt", "lll");
+        storage_chest.setIngredient('l', Material.OAK_SLAB);
+        storage_chest.setIngredient('t', Material.TRAPPED_CHEST);
+        storage_chest.setIngredient('b', Material.OAK_BUTTON);
+        storage_chest.setCategory(CraftingBookCategory.EQUIPMENT);
+        Bukkit.addRecipe(storage_chest);
+    }
+
+    public static void bpRecepice() {
+        ShapedRecipe backpack = new ShapedRecipe(Objects.requireNonNull(NamespacedKey.fromString("backpack")), CustomItems.storage_item());
+        backpack.shape("sls", "lcl", "sls");
+        backpack.setIngredient('s', Material.STICK);
+        backpack.setIngredient('l', Material.LEATHER);
+        backpack.setIngredient('c', Material.CHEST);
+        backpack.setCategory(CraftingBookCategory.EQUIPMENT);
+        Bukkit.addRecipe(backpack);
+    }
 }

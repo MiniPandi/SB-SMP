@@ -50,6 +50,8 @@ public final class Main extends JavaPlugin {
 
         CustomItemsRecipe.sofRecepice();
         CustomItemsRecipe.cwRecepice();
+        CustomItemsRecipe.siRecepice();
+        CustomItemsRecipe.bpRecepice();
         energyTimer();
     }
 
