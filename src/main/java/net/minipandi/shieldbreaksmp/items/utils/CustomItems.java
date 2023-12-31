@@ -50,4 +50,13 @@ public class CustomItems {
         backpack_item.setItemMeta(backpack_meta);
         return backpack_item;
     }
+
+    public static ItemStack storage_item() {
+        ItemStack storage_item = new ItemStack(Material.ENDER_CHEST);
+        ItemMeta storage_meta = storage_item.getItemMeta();
+        storage_meta.setDisplayName(ChatColor.GREEN + "StorageChest");
+        storage_meta.setCustomModelData(5);
+        storage_item.setItemMeta(storage_meta);
+        return storage_item;
+    }
 }
