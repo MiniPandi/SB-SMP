@@ -29,6 +29,7 @@ public final class Main extends JavaPlugin {
     public static AirJump airJump;
     private ProtocolManager protocolManager;
     public static Map<Player, Integer> energy = new HashMap<>();
+    public static Map<Player, Integer> moreenergy = new HashMap<>();
     public static Map<Player, Integer> morespace = new HashMap<>();
     private static Main main;
 
@@ -112,9 +113,9 @@ public final class Main extends JavaPlugin {
                 for (Map.Entry<Player, Integer> entry : energy.entrySet()) {
                     Player key = entry.getKey();
                     Integer value = entry.getValue();
-                    if (!morespace.isEmpty()) {
-                        if (morespace.containsKey(key) && !morespace.get(key).equals(0)) {
-                            Integer multiplier = morespace.get(key);
+                    if (!moreenergy.isEmpty()) {
+                        if (moreenergy.containsKey(key) && !moreenergy.get(key).equals(0)) {
+                            Integer multiplier = moreenergy.get(key);
                             Integer maxvalue = 2000 * multiplier;
                             if (value < maxvalue) {
                                 value += 10;
@@ -139,9 +140,9 @@ public final class Main extends JavaPlugin {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     Integer maxvalue = 2000;
-                    if (!morespace.isEmpty()) {
-                        if (!morespace.get(p).equals(0)) {
-                            Integer multiplier = morespace.get(p);
+                    if (!moreenergy.isEmpty()) {
+                        if (!moreenergy.get(p).equals(0)) {
+                            Integer multiplier = moreenergy.get(p);
                             maxvalue *= multiplier;
                         }
                     }

@@ -16,6 +16,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
+import static net.minipandi.shieldbreaksmp.Main.moreenergy;
+
 @SuppressWarnings("deprecation")
 public class backpack implements Listener {
 
@@ -23,11 +25,16 @@ public class backpack implements Listener {
     public void onUse(PlayerInteractEvent e) {
         ItemStack item = e.getItem();
         ItemStack itemInHand = e.getItem();
+        Player p = e.getPlayer();
         if (e.getAction().isRightClick()) {
             if (item != null && item.getType() != Material.AIR) {
                 if (item.getItemMeta() != null && item.getItemMeta().hasCustomModelData()) {
                     if (item.getType().equals(Material.ENDER_CHEST) && item.getItemMeta().getCustomModelData() == 4) {
                         if (ConvertInv.loadInventoryFromItem(itemInHand) != null) {
+                            Integer size = null;
+                            if (moreenergy.containsKey(e.getPlayer())) {
+                                size = moreenergy.get(p);
+                            }
                             Inventory inv = ConvertInv.deserializeInventory(ConvertInv.loadInventoryFromItem(itemInHand), ChatColor.BLACK + "Backpack", 2, e.getPlayer());
                             e.getPlayer().openInventory(inv);
                         } else {
@@ -49,10 +56,12 @@ public class backpack implements Listener {
         Player player = e.getPlayer();
         ItemStack iIH = player.getItemInHand();
         ItemStack iIO = player.getInventory().getItemInOffHand();
-        if (iIH.getItemMeta().getCustomModelData() == 4 && iIH.getType().equals(Material.ENDER_CHEST)) {
-            e.setCancelled(true);
-        } else if (iIO.getItemMeta().getCustomModelData() == 4 && iIO.getType().equals(Material.ENDER_CHEST)) {
-            e.setCancelled(true);
+        if (iIH.hasItemMeta() && iIH.getType().equals(Material.ENDER_CHEST)) {
+            if (iIH.getItemMeta().getCustomModelData() == 4 && iIH.getType().equals(Material.ENDER_CHEST)) {
+                e.setCancelled(true);
+            } else if (iIO.getItemMeta().getCustomModelData() == 4 && iIO.getType().equals(Material.ENDER_CHEST)) {
+                e.setCancelled(true);
+            }
         }
     }
 

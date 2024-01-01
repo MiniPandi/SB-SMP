@@ -24,8 +24,8 @@ public class funnyStick implements Listener {
                                     Integer lvl = item.getEnchantments().get(Main.airJump);
                                 }*/
                                 Integer value = Main.energy.get(e.getPlayer());
-                                if (value >= 50) {
-                                    value -= 50;
+                                if (value >= 500) {
+                                    value -= 500;
                                     Main.energy.put(e.getPlayer(), value);
                                     Location loc = e.getPlayer().getLocation();
                                     World world = e.getPlayer().getServer().getWorlds().get(0);

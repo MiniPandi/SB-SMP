@@ -1,9 +1,9 @@
 package net.minipandi.shieldbreaksmp.listener;
 
-import net.md_5.bungee.api.ChatColor;
 import net.minipandi.shieldbreaksmp.Main;
 import net.minipandi.shieldbreaksmp.items.utils.ConvertInv;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItems;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,29 +11,32 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 import static net.minipandi.shieldbreaksmp.Main.morespace;
 import static net.minipandi.shieldbreaksmp.items.backpack_energy_upgrade.isItemInSlot;
 
+@SuppressWarnings("deprecation")
 public class joinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
+        Inventory playerInv = player.getInventory();
         Main.energy.put(player, 2000);
-
-        Inventory invp = player.getInventory();
-        for (ItemStack item : invp.getContents()) {
-            if (item != null && item.equals(CustomItems.backpack_item())) {
-                String convertetInv = ConvertInv.loadInventoryFromItem(item);
-                Inventory inv = ConvertInv.deserializeInventory(convertetInv, ChatColor.BLACK + "Backpack", 2, player);
-                Player p = e.getPlayer();
-                int value = 0;
-                for (int slot : new int[]{0, 9}) {
-                    if (isItemInSlot(inv, slot, CustomItems.backpack_energy_upgrade())) {
-                        value += 2;
-                        morespace.put(p, value);
-                        break; // Break the loop once the item is found in one of the slots
+        for (ItemStack item : playerInv.getContents()) {
+            if (item != null && item.hasItemMeta() && item.getItemMeta().hasCustomModelData() && item.getItemMeta().getCustomModelData() == 4) {
+                if (ConvertInv.loadInventoryFromItem(item) != null) {
+                    Inventory inv = ConvertInv.deserializeInventory(Objects.requireNonNull(ConvertInv.loadInventoryFromItem(item)), ChatColor.BLACK + "Backpack", 2, player);
+                    int value = 0;
+                    if (inv.getItem(0) != null || inv.getItem(9) != null) {
+                        for (int slot : new int[]{0, 9}) {
+                            if (isItemInSlot(inv, slot, CustomItems.backpack_energy_upgrade())) {
+                                value += 2;
+                            }
+                        }
+                        morespace.put(player, value);
                     } else {
-                        morespace.put(p, 0);
+                        morespace.put(player, 0);
                     }
                 }
             }
