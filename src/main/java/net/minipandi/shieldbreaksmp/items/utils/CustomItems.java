@@ -77,4 +77,20 @@ public class CustomItems {
         backpack_storage_upgrade_item.setItemMeta(backpack_storage_upgrade_meta);
         return backpack_storage_upgrade_item;
     }
+    public static ItemStack enderite_ingot() {
+        return CustomItemGen.item(Material.NETHERITE_INGOT, 8, ChatColor.BLACK + "Enderite Ingot");
+    }
+    public static ItemStack enderite_helmet() {
+        return CustomItemGen.item(Material.NETHERITE_HELMET, 9, ChatColor.BLACK + "Enderite Helmet");
+    }
+    public static ItemStack enderite_chestplate() {
+        return CustomItemGen.item(Material.NETHERITE_CHESTPLATE, 10, ChatColor.BLACK + "Enderite Chestplate");
+    }
+    public static ItemStack enderite_leggings() {
+        return CustomItemGen.item(Material.NETHERITE_LEGGINGS, 11, ChatColor.BLACK + "Enderite Leggings");
+    }
+    public static ItemStack enderite_boots() {
+        return CustomItemGen.item(Material.NETHERITE_BOOTS, 12, ChatColor.BLACK + "Enderite Boots");
+    }
+
 }
