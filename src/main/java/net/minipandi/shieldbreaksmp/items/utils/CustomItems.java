@@ -5,8 +5,20 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 @SuppressWarnings("deprecation")
 public class CustomItems {
+
+    public static HashMap<ItemStack,String> items = new HashMap<>();
+
+    static {
+        items.put(filler(), "filler");
+        items.put(staff_of_teleportation_item(), "staff_of_teleportation_item");
+        items.put(construction_wand_item(), "construction_wand_item");
+    }
     public static ItemStack filler() {
         ItemStack filler_item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
         ItemMeta filler_meta = filler_item.getItemMeta();
@@ -92,5 +104,4 @@ public class CustomItems {
     public static ItemStack enderite_boots() {
         return CustomItemGen.item(Material.NETHERITE_BOOTS, 12, ChatColor.BLACK + "Enderite Boots");
     }
-
 }

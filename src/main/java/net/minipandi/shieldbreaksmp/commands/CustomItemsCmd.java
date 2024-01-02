@@ -6,11 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("deprecation")
 public class CustomItemsCmd implements TabExecutor {
@@ -20,24 +22,12 @@ public class CustomItemsCmd implements TabExecutor {
             Player player = (Player) sender;
             if (player.hasPermission("customItems.give")) {
                 if (args.length == 1) {
-                    switch (args[0]) {
-                        case "Staff_of_Teleportation":
-                            player.getInventory().addItem(CustomItems.staff_of_teleportation_item());
-                            break;
-                        case "Construction_Wand":
-                            player.getInventory().addItem(CustomItems.construction_wand_item());
-                            break;
-                        case "Funny_Stick":
-                            player.getInventory().addItem(CustomItems.funny_stick_item());
-                            break;
-                        case "Backpack":
-                            player.getInventory().addItem(CustomItems.backpack_item());
-                            break;
-                        case "Storage_Chest":
-                            player.getInventory().addItem(CustomItems.storage_item());
-                            break;
-                        case "Backpack_Energy_Upgrade":
-                            player.getInventory().addItem(CustomItems.backpack_energy_upgrade());
+                    for (Map.Entry<ItemStack, String> entry : CustomItems.items.entrySet()) {
+                        ItemStack key = entry.getKey();
+                        String value = entry.getValue();
+                        if (args[0].equals(value)){
+                            player.getInventory().addItem(key);
+                        }
                     }
                 } else {
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
@@ -60,12 +50,10 @@ public class CustomItemsCmd implements TabExecutor {
         if (args.length == 0) return list;
         //Player player = (Player) sender;
         if (args.length == 1) {
-            list.add("Staff_of_Teleportation");
-            list.add("Construction_Wand");
-            list.add("Funny_Stick");
-            list.add("Backpack");
-            list.add("Storage_Chest");
-            list.add("Backpack_Energy_Upgrade");
+            for (Map.Entry<ItemStack, String> entry : CustomItems.items.entrySet()) {
+                String value = entry.getValue();
+                list.add(value);
+            }
         }
         ArrayList<String> current = new ArrayList<>();
         String currentarg = args[args.length - 1].toLowerCase();
