@@ -1,2 +1,5 @@
+net\minipandi\shieldbreaksmp\commands\energyCommand.class
 net\minipandi\shieldbreaksmp\commands\CustomItemsCmd.class
+net\minipandi\shieldbreaksmp\items\backpack_energy_upgrade.class
+net\minipandi\shieldbreaksmp\items\backpack_storage_upgrade.class
 net\minipandi\shieldbreaksmp\Main.class

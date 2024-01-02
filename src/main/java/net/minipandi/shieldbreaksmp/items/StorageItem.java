@@ -50,13 +50,17 @@ public class StorageItem implements Listener {
             }
         }
     }
-
     @EventHandler
     public void onPlace(BlockPlaceEvent e) {
         Player player = e.getPlayer();
         ItemStack iIH = player.getItemInHand();
-        if (iIH.getItemMeta().getCustomModelData() == 5 && iIH.getType().equals(Material.CHEST)) {
-            e.setCancelled(true);
+        ItemStack iIO = player.getInventory().getItemInOffHand();
+        if (iIH.hasItemMeta() && iIH.getType().equals(Material.CHEST)) {
+            if (iIH.getItemMeta().getCustomModelData() == 5 && iIH.getType().equals(Material.CHEST)) {
+                e.setCancelled(true);
+            } else if (iIO.getItemMeta().getCustomModelData() == 5 && iIO.getType().equals(Material.CHEST)) {
+                e.setCancelled(true);
+            }
         }
     }
 }
