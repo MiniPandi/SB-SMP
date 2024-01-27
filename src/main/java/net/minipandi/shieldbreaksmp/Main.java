@@ -1,13 +1,10 @@
 package net.minipandi.shieldbreaksmp;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.TranslationRegistry;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.commands.energyCommand;
-import net.minipandi.shieldbreaksmp.enchants.AirJump;
 import net.minipandi.shieldbreaksmp.items.*;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
 import net.minipandi.shieldbreaksmp.listener.joinListener;
@@ -27,8 +24,6 @@ import java.util.Objects;
 
 @SuppressWarnings("all")
 public final class Main extends JavaPlugin {
-    public static AirJump airJump;
-    private ProtocolManager protocolManager;
     public static Map<Player, Integer> energy = new HashMap<>();
     public static Map<Player, Integer> moreenergy = new HashMap<>();
     public static Map<Player, Integer> morespace = new HashMap<>();
@@ -48,12 +43,6 @@ public final class Main extends JavaPlugin {
         registerEvents(new StorageItem(), this);
         registerEvents(new backpack_energy_upgrade(), this);
 
-        airJump = new AirJump(new NamespacedKey(this, "AirJump"));
-        registerEnchantment(airJump);
-
-        protocolManager = ProtocolLibrary.getProtocolManager();
-        getLogger().info(protocolManager.getMinecraftVersion().toString());
-
         CustomItemsRecipe.sofRecepice();
         CustomItemsRecipe.cwRecepice();
         CustomItemsRecipe.siRecepice();
@@ -62,28 +51,6 @@ public final class Main extends JavaPlugin {
     }
 
     @SuppressWarnings("unchecked")
-    @Override
-    public void onDisable() {
-        try {
-            Field keyField = Enchantment.class.getDeclaredField("byKey");
-
-            keyField.setAccessible(true);
-            HashMap<NamespacedKey, Enchantment> byKey = (HashMap<NamespacedKey, Enchantment>) keyField.get(null);
-
-            if (byKey.containsKey(airJump.getKey())) {
-                byKey.remove(airJump.getKey());
-            }
-            Field nameField = Enchantment.class.getDeclaredField("byName");
-
-            nameField.setAccessible(true);
-            HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) nameField.get(null);
-
-            if (byName.containsKey(airJump.getName())) {
-                byName.remove(airJump.getName());
-            }
-        } catch (Exception ignored) {
-        }
-    }
 
     public void registerEvents(Listener listener, Plugin plugin) {
         Bukkit.getPluginManager().registerEvents(listener, plugin);
@@ -108,7 +75,7 @@ public final class Main extends JavaPlugin {
     }
 
     public void energyTimer() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
                 for (Map.Entry<Player, Integer> entry : energy.entrySet()) {
@@ -136,7 +103,7 @@ public final class Main extends JavaPlugin {
             }
         }, 0L, 2 * 20L);
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
