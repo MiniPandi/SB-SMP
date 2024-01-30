@@ -37,6 +37,8 @@ public class CustomItemsCmd implements TabExecutor {
                     player.sendMessage(ChatColor.GREEN + "Backpack Custom Model Data: 4");
                     player.sendMessage(ChatColor.GREEN + "Storage Item Custom Model Data: 5");
                     player.sendMessage(ChatColor.GREEN + "Backpack Energy Upgrade Item Custom Model Data: 6");
+                    player.sendMessage(ChatColor.GREEN + "Backpack Energy Upgrade Item Custom Model Data: 6");
+                    player.sendMessage(ChatColor.GREEN + "FireSword Item Custom Model Data: 8");
                     player.sendMessage(ChatColor.GREEN + "---------------------------------------------");
                 }
             }

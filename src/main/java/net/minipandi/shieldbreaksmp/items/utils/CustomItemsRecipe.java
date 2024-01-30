@@ -46,4 +46,12 @@ public class CustomItemsRecipe {
         backpack.setCategory(CraftingBookCategory.EQUIPMENT);
         Bukkit.addRecipe(backpack);
     }
+    public static void fire_sword_recipce(){
+        ShapedRecipe recipe = new ShapedRecipe(NamespacedKey.fromString("fire-sword"), CustomItems.fire_sword());
+        recipe.shape(new String[]{"BNB", "NSN", "BNB"});
+        recipe.setIngredient('B', Material.BLAZE_POWDER);
+        recipe.setIngredient('N', Material.NETHER_STAR);
+        recipe.setIngredient('S', Material.NETHERITE_SWORD);
+        Bukkit.getServer().addRecipe(recipe);
+    }
 }

@@ -7,6 +7,7 @@ import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.commands.energyCommand;
 import net.minipandi.shieldbreaksmp.items.*;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
+import net.minipandi.shieldbreaksmp.listener.FireSwordListener;
 import net.minipandi.shieldbreaksmp.listener.joinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -42,11 +43,13 @@ public final class Main extends JavaPlugin {
         registerEvents(new backpack(), this);
         registerEvents(new StorageItem(), this);
         registerEvents(new backpack_energy_upgrade(), this);
+        registerEvents(new FireSwordListener(), this);
 
         CustomItemsRecipe.sofRecepice();
         CustomItemsRecipe.cwRecepice();
         CustomItemsRecipe.siRecepice();
         CustomItemsRecipe.bpRecepice();
+        CustomItemsRecipe.fire_sword_recipce();
         energyTimer();
     }
 

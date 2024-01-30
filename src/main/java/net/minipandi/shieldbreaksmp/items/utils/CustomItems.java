@@ -1,12 +1,19 @@
 
 package net.minipandi.shieldbreaksmp.items.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +29,7 @@ public class CustomItems {
         items.put(funny_stick_item(), "funny_stick_item");
         items.put(backpack_item(), "backpack_item");
         items.put(storage_item(), "storage_item");
+        items.put(fire_sword(), "fire_sword");
     }
     public static ItemStack filler() {
         ItemStack filler_item = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
@@ -92,5 +100,16 @@ public class CustomItems {
         backpack_storage_upgrade_meta.setCustomModelData(7);
         backpack_storage_upgrade_item.setItemMeta(backpack_storage_upgrade_meta);
         return backpack_storage_upgrade_item;
+    }
+    public static ItemStack fire_sword(){
+        ItemStack myItem = new ItemStack(Material.NETHERITE_SWORD);
+        ItemMeta meta = myItem.getItemMeta();
+        meta.setDisplayName(ChatColor.GOLD + "Fire Sword");
+        meta.addItemFlags(new ItemFlag[]{ItemFlag.HIDE_ATTRIBUTES});
+        meta.setLore(Arrays.asList("8 ♡", "", ChatColor.GRAY + "This is a nice sword", ChatColor.GRAY + "idk how you use this", "", ChatColor.GOLD + "Legendary Sword"));
+        meta.addEnchant(Enchantment.FIRE_ASPECT, 10, true);
+        meta.setCustomModelData(9);
+        myItem.setItemMeta(meta);
+        return myItem;
     }
 }
