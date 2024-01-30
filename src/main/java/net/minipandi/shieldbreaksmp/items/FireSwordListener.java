@@ -1,4 +1,4 @@
-package net.minipandi.shieldbreaksmp.listener;
+package net.minipandi.shieldbreaksmp.items;
 
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -43,7 +43,7 @@ public class FireSwordListener implements Listener {
                                 player.getInventory().setItemInOffHand(offHandItem);
                                 return;
                         } else {
-                            player.sendMessage(ChatColor.GOLD + "You don't have BLAZE POWDER in you off hand");
+                            player.sendActionBar(ChatColor.GOLD + "You don't have BLAZE POWDER in you off hand");
                         }
 
                     }
@@ -64,9 +64,11 @@ public class FireSwordListener implements Listener {
                 if (!(entity instanceof Player)) {
                     if (!entity.getType().equals(EntityType.DROPPED_ITEM) && !entity.getType().equals(EntityType.EXPERIENCE_ORB) && !entity.getType().equals(EntityType.BOAT) && !entity.getType().equals(EntityType.CHEST_BOAT) && !entity.getType().equals(EntityType.MINECART) && !entity.getType().equals(EntityType.MINECART_CHEST) && !entity.getType().equals(EntityType.MINECART_COMMAND) && !entity.getType().equals(EntityType.MINECART_TNT) && !entity.getType().equals(EntityType.MINECART_FURNACE) && !entity.getType().equals(EntityType.MINECART_HOPPER) && !entity.getType().equals(EntityType.MINECART_MOB_SPAWNER)) {
                         entity.setFireTicks(200);
-                        LivingEntity livingEntity = (LivingEntity)entity;
-                        if (livingEntity != null && livingEntity.getHealth() > 0.0) {
-                            livingEntity.damage(2.0);
+                        if (entity instanceof LivingEntity){
+                            LivingEntity livingEntity = (LivingEntity)entity;
+                            if (livingEntity != null && livingEntity.getHealth() > 0.0) {
+                                livingEntity.damage(2.0);
+                            }
                         }
                     }
                 } else if (!((Player)entity).getPlayer().equals(player)) {

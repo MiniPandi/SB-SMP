@@ -2,15 +2,13 @@ package net.minipandi.shieldbreaksmp;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.TranslationRegistry;
 import net.minipandi.shieldbreaksmp.commands.CustomItemsCmd;
 import net.minipandi.shieldbreaksmp.commands.energyCommand;
 import net.minipandi.shieldbreaksmp.items.*;
 import net.minipandi.shieldbreaksmp.items.utils.CustomItemsRecipe;
-import net.minipandi.shieldbreaksmp.listener.FireSwordListener;
+import net.minipandi.shieldbreaksmp.items.FireSwordListener;
 import net.minipandi.shieldbreaksmp.listener.joinListener;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
